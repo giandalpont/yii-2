@@ -2,49 +2,126 @@
 
 namespace app\controllers;
 
+use Yii;
 use app\models\Pessoas;
-use yii\base\Controller;
-use yii\data\Pagination;
+use app\models\PessoasSearch;
+use yii\web\Controller;
+use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
 
-class PessoasController extends Controller {
-    public function actionPessoas() {
-        /* Buscando todos no banco de dados */
-        // $pessoas = Pessoas::find()->orderBy('firstname')->all();
-        // echo '<pre>';
-        // print_r($pessoas);
-        // echo '</pre>';
-        
-        /* Buscando pelo ID */
-        // $pessoa = Pessoas::findOne(2);
-        // echo $pessoa->firstname.' ' . $pessoa->lastname;
-        // echo '<br />';
-        // echo $pessoa->email;
+/**
+ * PessoasController implements the CRUD actions for Pessoas model.
+ */
+class PessoasController extends Controller
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
+    }
 
-        /* Atualizando o firstname */
-        // $pessoa->firstname = 'Gian Carlos';
-        // $pessoa->save();
-        // echo '<br />';
-        // echo '<br />';
-        // echo '<br />';
-        // echo $pessoa->firstname;
+    /**
+     * Lists all Pessoas models.
+     * @return mixed
+     */
+    public function actionIndex()
+    {
+        $searchModel = new PessoasSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        $query = Pessoas::find();
-
-        $pagination = new Pagination([
-            'defaultPageSize' => 1,
-            'totalCount' => $query->count()
-        ]);
-
-        $pessoas = $query->orderBy('firstname')
-            ->offset($pagination->offset)
-            ->limit($pagination->limit)
-            ->all();
-
-        return $this->render('pessoas', [
-            'pessoas' => $pessoas,
-            'pagination' => $pagination,
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
-}
 
-?>
+    /**
+     * Displays a single Pessoas model.
+     * @param string $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    /**
+     * Creates a new Pessoas model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreate()
+    {
+        $model = new Pessoas();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Updates an existing Pessoas model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param string $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Deletes an existing Pessoas model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param string $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * Finds the Pessoas model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param string $id
+     * @return Pessoas the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = Pessoas::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+}
