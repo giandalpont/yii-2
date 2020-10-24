@@ -35,6 +35,7 @@ class PessoasController extends Controller
      */
     public function actionIndex()
     {
+        // echo Yii::$app->catchAll['param1'];
         $searchModel = new PessoasSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

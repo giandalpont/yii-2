@@ -5,6 +5,15 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    'name' => 'Yii2',
+    'version' => '1.0.2',
+    'language' => 'pt-BR',
+    'timeZone' => 'America/Brasilia',
+    'catchAll' => [
+        // 'pessoas/index',
+        // 'param1' => 'KillRouter',
+        // 'param2' => 'Manutenção',
+    ],
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -43,14 +52,12 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-        */
     ],
     'params' => $params,
 ];
