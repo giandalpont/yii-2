@@ -21,6 +21,10 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+        'myComponent' => [
+            'class' => 'app\components\MyComponent',
+            'string' => 'Olá sou uma string!',
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'f3cf5bffb9dcc7eed2d10385be131bbd',

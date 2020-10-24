@@ -3,6 +3,7 @@
 /* @var $this yii\web\View */
 
 $this->title = 'My Yii Application';
+echo Yii::$app->myComponent->printString();
 ?>
 <div class="site-index">
 
