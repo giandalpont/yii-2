@@ -2,19 +2,14 @@
 
 namespace app\modules\api\controllers;
 
-use yii\web\Controller;
+use yii\rest\ActiveController;
 
-/**
- * Default controller for the `api` module
- */
-class DefaultController extends Controller
-{
-    /**
-     * Renders the index view for the module
-     * @return string
-     */
-    public function actionIndex()
-    {
+class DefaultController extends ActiveController {
+
+    // Utilizando como base o model notícia
+    public $modelClass = 'app\models\Noticia';
+
+    public function actionIndex() {
         return $this->render('index');
     }
 }
