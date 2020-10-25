@@ -62,6 +62,13 @@ $config = [
             'rules' => [
             ],
         ],
+        'formatter' => [
+            'class' => 'app\components\MyFormatter',
+            'dateFormat' => 'dd/MM/yyyy',
+            'decimalSeparator' => ',',
+            'thousandSeparator' => ' ',
+            'currencyCode' => 'R$',
+       ],
     ],
     'modules' => [
         'financeiro' => [
