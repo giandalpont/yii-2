@@ -10,9 +10,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * NoticiaController implements the CRUD actions for Noticia model.
+ * NoticiasController implements the CRUD actions for Noticia model.
  */
-class NoticiaController extends Controller
+class NoticiasController extends Controller
 {
     /**
      * {@inheritdoc}
