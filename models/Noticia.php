@@ -48,8 +48,22 @@ class Noticia extends \yii\db\ActiveRecord
             'titulo' => 'Titulo',
             'cabeca' => 'Cabeca',
             'corpo' => 'Corpo',
-            'statu' => 'Statu',
+            'statu' => 'Status',
             'create_at' => 'Create At',
+        ];
+    }
+
+    /*
+        Filtro para API
+        Retornando id, title e status.
+    */
+    public function fields() {
+        return [
+            'id',
+            'title' => 'titulo',
+            'status' => function(Noticia $model) {
+                return ($model->statu == '1' ? 'Ativo' : 'Inativo');
+            }
         ];
     }
 }
