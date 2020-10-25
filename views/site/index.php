@@ -1,24 +1,8 @@
 <?php
 
 /* @var $this yii\web\View */
-use yii\jui\DatePicker;
-use app\widgets\Hello;
 
 $this->title = 'My Yii Application';
-echo Yii::$app->myComponent->printString();
-
-echo '<br />';
-
-echo Hello::Widget([
-    'message' => 'H2 message',
-    'submessage' => 'H3 submessage'
-]);
-
-echo DatePicker::widget([
-    'name' => 'data_venda',
-    'language' => 'pt',
-    'dateFormat' => 'dd/MM/yyyy',
-]);
 ?>
 <div class="site-index">
 
